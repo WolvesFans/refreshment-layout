@@ -3,21 +3,24 @@ import 'package:flutter/material.dart';
 class CakeTile extends StatelessWidget {
   final String cakeImagePath;
   final String cakeName;
+  final String cakeText;
   final String cakePrice;
 
   CakeTile({
     required this.cakeImagePath,
     required this.cakeName,
+    required this.cakeText,
     required this.cakePrice,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 18.0, bottom: 100),
+      padding: const EdgeInsets.only(left: 18.0, bottom: 200),
       child: Container(
         padding: EdgeInsets.all(20),
         width: 200,
+        height: 200,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: Colors.black,
@@ -42,7 +45,7 @@ class CakeTile extends StatelessWidget {
                     style: TextStyle(fontSize: 20),
                   ),
                   Text(
-                    'Chocolate Donuts',
+                    cakeText,
                     style: TextStyle(color: Colors.grey[700]),
                   )
                 ],

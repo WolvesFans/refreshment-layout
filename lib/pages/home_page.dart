@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:layout1/util/cake_tile.dart';
+import 'package:layout1/util/cake_type.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,6 +10,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  //list of cake types
+  final List cakeType = [
+    // [cake type, isSelected]
+    [
+      'Foods',
+      true,
+    ],
+    [
+      'Ice',
+      false,
+    ],
+    [
+      'Drinks',
+      false,
+    ],
+  ];
+
+  //tapped on cake types
+  void cakeTypeSelected(int index) {
+    setState(() {
+      // for loop ini bikin stiap pilihan false
+      for (int i = 0; i < cakeType.length; i++) {
+        cakeType[i][1] = false;
+      }
+      cakeType[index][1] = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +55,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          //I want to eat!
+          //Welcome to Mama's Kitchen
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Text(
@@ -36,8 +65,25 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-
           SizedBox(height: 25),
+
+          // listview category
+          Container(
+            height: 50,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: cakeType.length,
+              itemBuilder: (context, index) {
+                return CakeType(
+                  cakeType: cakeType[index][0],
+                  isSelected: cakeType[index][1],
+                  onTap: () {
+                    cakeTypeSelected(index);
+                  },
+                );
+              },
+            ),
+          ),
 
           //listview menu
           Expanded(
@@ -47,17 +93,37 @@ class _HomePageState extends State<HomePage> {
                 CakeTile(
                   cakeImagePath: 'lib/images/donut.png',
                   cakeName: 'Donuts',
+                  cakeText: 'Chocolate donuts',
                   cakePrice: '10.000',
                 ),
                 CakeTile(
                   cakeImagePath: 'lib/images/cheesecake.png',
                   cakeName: 'Cheesecake',
+                  cakeText: 'Slice of cheese cake',
                   cakePrice: '15.000',
                 ),
                 CakeTile(
                   cakeImagePath: 'lib/images/sundae.png',
                   cakeName: 'Sundae',
+                  cakeText: 'Three-way sundae',
                   cakePrice: '12.000',
+                ),
+                CakeTile(
+                    cakeImagePath: 'lib/images/ice cream.png',
+                    cakeName: 'Cone Ice Cream',
+                    cakeText: 'Three-way ice cream',
+                    cakePrice: '8.000'),
+                CakeTile(
+                  cakeImagePath: 'lib/images/americano.png',
+                  cakeName: 'Coffee',
+                  cakeText: 'Americano coffee',
+                  cakePrice: '12.000',
+                ),
+                CakeTile(
+                  cakeImagePath: 'lib/images/tea.png',
+                  cakeName: 'Hot Tea',
+                  cakeText: 'Jasmine Sweet Tea',
+                  cakePrice: '10.000',
                 ),
               ],
             ),
